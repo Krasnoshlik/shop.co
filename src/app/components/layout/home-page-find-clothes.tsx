@@ -10,9 +10,9 @@ import romb from "../../assets/romb.png";
 export default function HomePageFindClothes() {
   return (
     <div className=" bg-[#F2F0F1] w-full flex flex-col justify-center items-center">
-      <section className=" max-w-containerScreen pt-10 px-4">
+      <section className=" max-w-containerScreen pt-6 px-4">
         <div className=" flex flex-col gap-4">
-          <h2 className=" font-bold text-4xl">
+          <h2 className=" font-extrabold text-4xl">
             FIND CLOTHES THAT MATCHES YOUR STYLE
           </h2>
           <p className=" text-gray-400 text-sm">

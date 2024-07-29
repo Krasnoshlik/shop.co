@@ -8,7 +8,7 @@ import arrowRight from '../../assets/arrow-right.png'
 
 export default function OurCustomers() {
   return (
-    <section className=' max-w-containerScreen m-auto mx-4 py-5 flex flex-col gap-5'>
+    <section className=' max-w-containerScreen m-auto mx-4 py-10 flex flex-col gap-5'>
         <div className=' flex justify-between items-end'>
         <h2 className=' text-3xl font-extrabold'>OUR HAPPY CUSTOMERS</h2>
 

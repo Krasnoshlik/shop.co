@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import PromoBaner from "./components/ui/sign-up-promo-baner";
 import Header from "./components/ui/header";
+import Footer from "./components/ui/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
         <PromoBaner/>
         <Header/>
         {children}
+        <Footer/>
       </body>
     </html>
   );
