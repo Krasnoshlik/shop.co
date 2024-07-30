@@ -17,7 +17,7 @@ export default function ProductsList({productsList}:{productsList : any}) {
 
   return (
     <div className=' flex flex-col gap-4'>
-    <div className=' flex gap-4 overflow-auto'>
+    <div className=' flex gap-4 overflow-auto lg:overflow-visible lg:flex-wrap'>
         {
             productsToShow.map((product: ProductType) => {
                 return (

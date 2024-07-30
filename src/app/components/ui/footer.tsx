@@ -1,5 +1,5 @@
 import React from 'react'
-import FormForNewsLetter from '../layout/form-for-newsletter'
+import FormForNewsLetter from './form-for-newsletter'
 import { footerImg,paymentImg } from '@/app/constants/images-arrays-imports'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -7,14 +7,15 @@ import Link from 'next/link'
 export default function Footer() {
   return (
     <footer className=' bg-[#F0F0F0] mt-[140px] pb-5'>
+        <div className=' max-w-containerScreen m-auto md:flex md:flex-col md:items-center'>
         <div className=' absolute'>
         <FormForNewsLetter/>
         </div>
 
-        <div className=' pt-[200px] mx-4'>
-            <div className=' flex flex-col gap-3'>
+        <div className=' pt-[200px] mx-4 lg:flex lg:gap-5 lg:pt-[100px]'>
+            <div className=' flex flex-col gap-3 lg:justify-end lg:mb-4'>
                 <h2 className=' font-extrabold text-3xl'>SHOP.CO</h2>
-                <p className=' text-sm text-gray-400'>We have clothes that suits your style and which you’re proud to wear. From women to men.</p>
+                <p className=' text-sm text-gray-400 lg:max-w-48'>We have clothes that suits your style and which you’re proud to wear. From women to men.</p>
                 <div className=' flex gap-3'>
                     {
                         footerImg.map((img, i) => {
@@ -62,6 +63,8 @@ export default function Footer() {
 
             </div>
 
+            </div>
+
             <span className=' block h-[1px] w-full bg-slate-300'></span>
 
             <div className=' flex flex-col gap-2 items-center mt-3'>
@@ -77,6 +80,7 @@ export default function Footer() {
                 </div>
             </div>
         </div>
+        
     </footer>
   )
 }

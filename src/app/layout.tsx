@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import PromoBaner from "./components/ui/sign-up-promo-baner";
 import Header from "./components/ui/header";
 import Footer from "./components/ui/footer";
 
@@ -19,7 +18,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <PromoBaner/>
         <Header/>
         {children}
         <Footer/>

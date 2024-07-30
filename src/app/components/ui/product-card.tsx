@@ -24,10 +24,10 @@ export default function ProductCard({ product }: { product: ProductType }) {
   };
 
   return (
-    <div className="min-w-[200px] flex flex-col gap-1 items-start text-left">
-      <Image src={product.img} alt={product.title} />
-      <div className=' relative'>
-        <button className=' absolute -top-11 -right-[190px] bg-white border rounded-2xl text-lg px-2 shadow-md'>+</button>
+    <div className="min-w-[200px] max-w-[290px] flex flex-col gap-1 items-start text-left">
+      <Image src={product.img} alt={product.title}/>
+      <div className=' relative '>
+        <button className=' absolute -top-11 -right-[190px] md:-right-[195px] lg:-right-[280px] bg-white border rounded-2xl text-lg px-2 lg:hover:bg-black lg:hover:text-white ease-in-out duration-500'>+</button>
       </div>
       <h4 className="font-bold text-sm truncate-text" title={product.title}>
         {product.title}

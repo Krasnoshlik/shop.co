@@ -5,7 +5,7 @@ import OurCustomers from "./components/layout/our-customers";
 
 export default function Home() {
   return (
-    <main className=" max-w-containerScreen">
+    <main>
       <HomePageFindClothes/>
       <NewArrivalsAndTopSelling/>
       <BrowseByDress/>
