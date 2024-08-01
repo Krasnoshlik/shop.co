@@ -1,8 +1,8 @@
 "use client"
 import React from 'react'
-import { customersComments } from '../../../../data/customers-comments'
+import { customersComments } from '../../../data/customers-comments'
 import CustomerCommentCard from '../ui/customer-comment-card'
-import { customerCommentType } from '@/app/types/product.ds'
+import { customerCommentType } from '@/types/product.ds'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
@@ -24,7 +24,7 @@ export default function OurCustomers() {
           pagination={{
             el: '.custom-swiper-pagination',
             clickable: true,
-            renderBullet: (className) => {
+            renderBullet: (index,className) => {
               return `<span class="${className} custom-pagination-bullet"></span>`;
             },
           }}

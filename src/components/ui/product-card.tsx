@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { ProductType } from '@/app/types/product.ds';
+import { ProductType } from '@/types/product.ds';
 import fullStarImg from '../../assets/products/fullStar.png';
 import halfStarImg from '../../assets/products/halfStar.png';
 
@@ -24,11 +24,8 @@ export default function ProductCard({ product }: { product: ProductType }) {
   };
 
   return (
-    <div className="min-w-[200px] max-w-[290px] flex flex-col gap-1 items-start text-left">
+    <div className="min-w-[164px] max-w-[290px] flex flex-col gap-1 items-start text-left">
       <Image src={product.img} alt={product.title}/>
-      <div className=' relative '>
-        <button className=' absolute -top-11 -right-[190px] md:-right-[195px] lg:-right-[280px] bg-white border rounded-2xl text-lg px-2 lg:hover:bg-black lg:hover:text-white ease-in-out duration-500'>+</button>
-      </div>
       <h4 className="font-bold text-sm truncate-text" title={product.title}>
         {product.title}
       </h4>
@@ -36,7 +33,11 @@ export default function ProductCard({ product }: { product: ProductType }) {
         {renderStars(product.raiting)}
         <span>{product.raiting}/5</span>
       </div>
+      <div className=' w-full flex justify-between items-center'>
       <p className="font-bold text-sm">${product.price}</p>
+      <button className=' bg-white text-sm border font-medium border-black rounded-md px-1 lg:hover:bg-black lg:hover:text-white h-[22px] flex justify-center items-center'>Add to cart</button>
+      </div>
+
     </div>
   );
 }

@@ -22,7 +22,7 @@ export default function Header() {
   return (
     <div className=" fixed w-full z-50">
     <PromoBaner/>
-    <div className=" bg-white">
+    <div className=" bg-white border-b">
     <header className="relative max-w-containerScreen m-auto py-3 px-4 flex justify-between items-center ">
       <div className="flex items-center md:justify-between md:gap-7 lg:gap-20">
         <button
@@ -34,7 +34,7 @@ export default function Header() {
 
         <h1 className="ml-4 font-bold text-2xl md:ml-0 md:hover:cursor-pointer">SHOP.CO</h1>
         <nav className=" hidden md:flex gap-4 font-medium">
-          <a href="#" className="text-black lg:hover:text-gray-500">
+          <a href="/shop" className="text-black lg:hover:text-gray-500">
           Shop
           </a>
           <a href="#" className="text-black lg:hover:text-gray-500">
@@ -74,10 +74,10 @@ export default function Header() {
           x
         </button>
         <nav className="mt-16 flex flex-col space-y-4 px-6">
-          <a href="#" className="text-black">
+          <a href="/" className="text-black">
             Home
           </a>
-          <a href="#" className="text-black">
+          <a href="/shop" className="text-black">
             Shop
           </a>
           <a href="#" className="text-black">

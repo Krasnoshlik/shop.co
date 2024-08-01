@@ -1,6 +1,6 @@
 import React from 'react'
 import FormForNewsLetter from './form-for-newsletter'
-import { footerImg,paymentImg } from '@/app/constants/images-arrays-imports'
+import { footerImg,paymentImg } from '@/constants/images-arrays-imports'
 import Image from 'next/image'
 import Link from 'next/link'
 

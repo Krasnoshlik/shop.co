@@ -1,6 +1,6 @@
 import React from 'react'
 import ProductsList from '../ui/products-list'
-import { productsList } from '../../../../data/products'
+import { productsList } from '../../../data/products'
 
 const productsListReversed = productsList.toReversed();
 

@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import ProductCard from './product-card'
-import { ProductType } from '@/app/types/product.ds'
+import { ProductType } from '@/types/product.ds'
 
 export default function ProductsList({productsList}:{productsList : any}) {
     const [productsToShow, setProductsToShow] = useState([]);

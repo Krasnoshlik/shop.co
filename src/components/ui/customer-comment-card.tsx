@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image';
 import fullStar from '../../assets/products/fullStar.png';
 import greenArrow from '../../assets/greenArrow.png';
-import { customerCommentType } from '@/app/types/product.ds';
+import { customerCommentType } from '@/types/product.ds';
 
 export default function CustomerCommentCard({comment}: {comment : customerCommentType}) {
   return (

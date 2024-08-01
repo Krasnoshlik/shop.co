@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import { browseByDressImg } from '@/app/constants/images-arrays-imports'
+import { browseByDressImg } from '@/constants/images-arrays-imports'
 
 export default function BrowseByDress() {
   return (

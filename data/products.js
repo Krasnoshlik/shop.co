@@ -1,15 +1,15 @@
-import product1 from '../src/app/assets/products/product1.png';
-import product2 from '../src/app/assets/products/product2.png';
-import product3 from '../src/app/assets/products/product3.png';
-import product4 from '../src/app/assets/products/product4.png';
-import product5 from '../src/app/assets/products/product5.png';
-import product6 from '../src/app/assets/products/product6.png';
-import product7 from '../src/app/assets/products/product7.png';
-import product8 from '../src/app/assets/products/product8.png';
-import product9 from '../src/app/assets/products/product9.png';
-import product10 from '../src/app/assets/products/product10.png';
-import product11 from '../src/app/assets/products/product11.png';
-import product12 from '../src/app/assets/products/product12.png';
+import product1 from '../src/assets/products/product1.png';
+import product2 from '../src/assets/products/product2.png';
+import product3 from '../src/assets/products/product3.png';
+import product4 from '../src/assets/products/product4.png';
+import product5 from '../src/assets/products/product5.png';
+import product6 from '../src/assets/products/product6.png';
+import product7 from '../src/assets/products/product7.png';
+import product8 from '../src/assets/products/product8.png';
+import product9 from '../src/assets/products/product9.png';
+import product10 from '../src/assets/products/product10.png';
+import product11 from '../src/assets/products/product11.png';
+import product12 from '../src/assets/products/product12.png';
 
 export const productsList = [
     {
@@ -18,7 +18,8 @@ export const productsList = [
         title:'T-SHIRT WITH TAPE DETAILS',
         raiting: 4.5,
         price: 120,
-        type: 't-shirt'
+        type: 't-shirt',
+        sizes: 's l'
     },
     {
         id: 2,
@@ -26,7 +27,8 @@ export const productsList = [
         title:'SKINNY FIT JEANS',
         raiting: 3.5,
         price: 240,
-        type: 'jeans'
+        type: 'jeans',
+        sizes: 'l xl'
     },
     {
         id: 3,
@@ -34,7 +36,8 @@ export const productsList = [
         title:'CHECKERED SHIRT',
         raiting: 4.5,
         price: 180,
-        type: 'shirt'
+        type: 'shirt',
+        sizes: 's l xl'
     },
     {
         id: 4,
@@ -42,7 +45,8 @@ export const productsList = [
         title:'SLEEVE STRIPED T-SHIRT',
         raiting: 4.5,
         price: 130,
-        type: 't-shirt'
+        type: 't-shirt',
+        sizes: 's l'
     },
     {
         id: 5,
@@ -50,7 +54,8 @@ export const productsList = [
         title:'VERTICAL STRIPED SHIRT',
         raiting: 5,
         price: 210,
-        type: 'shirt'
+        type: 'shirt',
+        sizes: 'l xl'
     },
     {
         id: 6,
@@ -58,7 +63,8 @@ export const productsList = [
         title:'COURAGE GRAPHIC T-SHIRT',
         raiting: 4,
         price: 145,
-        type: 't-shirt'
+        type: 't-shirt',
+        sizes: 's xl'
     },
     {
         id: 7,
@@ -66,7 +72,8 @@ export const productsList = [
         title:'LOOSE FIT BERMUDA SHORTS',
         raiting: 3,
         price: 80,
-        type: 'shorts'
+        type: 'shorts',
+        sizes: 's l'
     },
     {
         id: 8,
@@ -74,7 +81,8 @@ export const productsList = [
         title:'FADED SKINNY JEANS',
         raiting: 4.5,
         price: 210,
-        type: 'jeans'
+        type: 'jeans',
+        sizes: 'l xl'
     },
     {
         id: 9,
@@ -82,7 +90,8 @@ export const productsList = [
         title:'Polo with Contrast Trims',
         raiting: 4,
         price: 212,
-        type: 't-shirt'
+        type: 't-shirt',
+        sizes: 's l'
     },
     {
         id: 10,
@@ -90,7 +99,8 @@ export const productsList = [
         title:'Gradient Graphic T-shirt',
         raiting: 3.5,
         price: 145,
-        type: 't-shirt'
+        type: 't-shirt',
+        sizes: 's l xl'
     },
     {
         id: 11,
@@ -98,7 +108,8 @@ export const productsList = [
         title:'Polo with Tipping Details',
         raiting: 4.5,
         price: 180,
-        type: 't-shirt'
+        type: 't-shirt',
+        sizes: 'l xl'
     },
     {
         id: 12,
@@ -106,6 +117,7 @@ export const productsList = [
         title:'Black Striped T-shirt',
         raiting: 5,
         price: 120,
-        type: 't-shirt'
+        type: 't-shirt',
+        sizes: 's l'
     },
 ]
