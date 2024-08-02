@@ -14,3 +14,9 @@ export interface customerCommentType {
     customer: string,
     comment: string,
 }
+
+export interface MobileFilterForShopProps {
+    isOpen: boolean;
+    handleClick: () => void;
+    handleOverlayClick: () => void;
+  }

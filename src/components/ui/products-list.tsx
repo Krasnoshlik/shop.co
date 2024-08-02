@@ -13,7 +13,7 @@ export default function ProductsList({productsList}:{productsList : any}) {
 
     useEffect(() => {
         onlyFourItems()
-    },[])
+    },[productsList])
 
   return (
     <div className=' flex flex-col gap-4'>
