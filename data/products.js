@@ -19,7 +19,7 @@ export const productsList = [
         raiting: 4.5,
         price: 120,
         type: 't-shirt',
-        sizes: 's l'
+        sizes: 'S L'
     },
     {
         id: 2,
@@ -28,7 +28,7 @@ export const productsList = [
         raiting: 3.5,
         price: 240,
         type: 'jeans',
-        sizes: 'l xl'
+        sizes: 'L XL'
     },
     {
         id: 3,
@@ -37,7 +37,7 @@ export const productsList = [
         raiting: 4.5,
         price: 180,
         type: 'shirt',
-        sizes: 's l xl'
+        sizes: 'S L XL'
     },
     {
         id: 4,
@@ -46,7 +46,7 @@ export const productsList = [
         raiting: 4.5,
         price: 130,
         type: 't-shirt',
-        sizes: 's l'
+        sizes: 'S L'
     },
     {
         id: 5,
@@ -55,7 +55,7 @@ export const productsList = [
         raiting: 5,
         price: 210,
         type: 'shirt',
-        sizes: 'l xl'
+        sizes: 'L XL'
     },
     {
         id: 6,
@@ -64,7 +64,7 @@ export const productsList = [
         raiting: 4,
         price: 145,
         type: 't-shirt',
-        sizes: 's xl'
+        sizes: 'S XL'
     },
     {
         id: 7,
@@ -73,7 +73,7 @@ export const productsList = [
         raiting: 3,
         price: 80,
         type: 'shorts',
-        sizes: 's l'
+        sizes: 'S L'
     },
     {
         id: 8,
@@ -82,7 +82,7 @@ export const productsList = [
         raiting: 4.5,
         price: 210,
         type: 'jeans',
-        sizes: 'l xl'
+        sizes: 'L XL'
     },
     {
         id: 9,
@@ -91,7 +91,7 @@ export const productsList = [
         raiting: 4,
         price: 212,
         type: 't-shirt',
-        sizes: 's l'
+        sizes: 'S L'
     },
     {
         id: 10,
@@ -100,7 +100,7 @@ export const productsList = [
         raiting: 3.5,
         price: 145,
         type: 't-shirt',
-        sizes: 's l xl'
+        sizes: 'S L XL'
     },
     {
         id: 11,
@@ -109,7 +109,7 @@ export const productsList = [
         raiting: 4.5,
         price: 180,
         type: 't-shirt',
-        sizes: 'l xl'
+        sizes: 'L XL'
     },
     {
         id: 12,
@@ -118,6 +118,6 @@ export const productsList = [
         raiting: 5,
         price: 120,
         type: 't-shirt',
-        sizes: 's l'
+        sizes: 'S L'
     },
 ]

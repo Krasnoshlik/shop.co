@@ -1,12 +1,12 @@
 "use client"
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import GrayCrossImg from '../../assets/gray-cross.png'
 import HorizontalLine from './horizontal-line'
 import CheckboxButton from './checkbox-button'
-import { MobileFilterForShopProps } from '@/types/product.ds'
+import { FilterForShopProps } from '@/types/product.ds'
 
-const MobileFilterForShop: React.FC<MobileFilterForShopProps> = ({ isOpen, handleClick, handleOverlayClick }) => {
+const FilterForShop: React.FC<FilterForShopProps> = ({handleClick, setFilters }) => {
   const [checkedState, setCheckedState] = useState<{ S: boolean; L: boolean; XL: boolean }>({
     S: false,
     L: false,
@@ -15,7 +15,6 @@ const MobileFilterForShop: React.FC<MobileFilterForShopProps> = ({ isOpen, handl
   const [stateForType, setStateForType] = useState<string[]>([]);
   const [stateForPrice, setStateForPrice] = useState<[number | null, number | null]>([null, null]);
 
-  const [stateForAllFilters, setStateForAllFilters] = useState<[string[], { S: boolean; L: boolean; XL: boolean }, [number | null, number | null]]>([[], { S: false, L: false, XL: false }, [null, null]]);
 
   const handleToggle = (option: 'S' | 'L' | 'XL') => (newState: boolean) => {
     setCheckedState((prevState) => ({
@@ -40,22 +39,23 @@ const MobileFilterForShop: React.FC<MobileFilterForShopProps> = ({ isOpen, handl
   };
 
   const handleApplyFilter = () => {
-    setStateForAllFilters([stateForType, checkedState, stateForPrice]);
+    setFilters([stateForType, checkedState, stateForPrice]);
   };
 
-  useEffect(() => {
-    console.log(stateForAllFilters)
-  },[stateForAllFilters])
+  const handleResetFilter = () => {
+    setCheckedState({S: false,L: false,XL: false,})
+    setStateForType([])
+    setStateForPrice([null, null])
+    setFilters([])
+  }
+
+  const isChecked = (id: string) => stateForType.includes(id);
 
   return (
-    <div>
-      <div
-        className={`fixed top-0 mt-[110px] py-5 px-4 left-0 h-full w-full flex flex-col gap-5 rounded-t-2xl bg-white shadow-lg transform transition-transform z-[110] ${isOpen ? "translate-y-0" : "translate-y-full"
-          }`}
-      >
+        <div className=' flex flex-col gap-5'>
         <div className='flex justify-between'>
           <h2 className='font-extrabold text-xl'>Filters</h2>
-          <button onClick={handleClick}>
+          <button onClick={handleClick} className=' md:hidden'>
             <Image src={GrayCrossImg} alt="GrayCrossImg" />
           </button>
         </div>
@@ -63,23 +63,23 @@ const MobileFilterForShop: React.FC<MobileFilterForShopProps> = ({ isOpen, handl
         <HorizontalLine />
 
         <div>
-          <div className='flex gap-2'>
-            <input type="checkbox" id="t-shirts" onChange={handleTypeChange} />
-            <p className='text-gray-400'>T-shirts</p>
-          </div>
-          <div className='flex gap-2'>
-            <input type="checkbox" id="jeans" onChange={handleTypeChange} />
-            <p className='text-gray-400'>Jeans</p>
-          </div>
-          <div className='flex gap-2'>
-            <input type="checkbox" id="shirt" onChange={handleTypeChange} />
-            <p className='text-gray-400'>Shirt</p>
-          </div>
-          <div className='flex gap-2'>
-            <input type="checkbox" id="shorts" onChange={handleTypeChange} />
-            <p className='text-gray-400'>Shorts</p>
-          </div>
+        <div className='flex gap-2'>
+          <input type="checkbox" id="t-shirt" checked={isChecked("t-shirt")} onChange={handleTypeChange} />
+          <p className='text-gray-400'>T-shirts</p>
         </div>
+        <div className='flex gap-2'>
+          <input type="checkbox" id="jeans" checked={isChecked("jeans")} onChange={handleTypeChange} />
+          <p className='text-gray-400'>Jeans</p>
+        </div>
+        <div className='flex gap-2'>
+          <input type="checkbox" id="shirt" checked={isChecked("shirt")} onChange={handleTypeChange} />
+          <p className='text-gray-400'>Shirts</p>
+        </div>
+        <div className='flex gap-2'>
+          <input type="checkbox" id="shorts" checked={isChecked("shorts")} onChange={handleTypeChange} />
+          <p className='text-gray-400'>Shorts</p>
+        </div>
+      </div>
 
         <HorizontalLine />
 
@@ -118,18 +118,11 @@ const MobileFilterForShop: React.FC<MobileFilterForShopProps> = ({ isOpen, handl
         </div>
         <button
           onClick={handleApplyFilter}
-          className='rounded-3xl bg-black text-white w-full py-3 font-medium lg:hover:bg-white lg:hover:text-black ease-in-out duration-500'>Apply Filter</button>
+          className='rounded-3xl bg-black text-white w-full py-3 font-medium lg:hover:bg-white lg:hover:text-black ease-in-out duration-500'>
+            Apply Filter</button>
+          <button className=' text-sm text-red-400' onClick={handleResetFilter}>Reset all filters</button>
       </div>
-
-      {/* Overlay */}
-      {isOpen && (
-        <div
-          className="fixed top-0 left-0 -mt-24 w-full h-full bg-gray-800 bg-opacity-50 z-[100]"
-          onClick={handleOverlayClick}
-        ></div>
-      )}
-    </div>
   )
 }
 
-export default MobileFilterForShop;
+export default FilterForShop;
