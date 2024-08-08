@@ -7,6 +7,7 @@ import cartImage from "../../assets/cart.png";
 import burgerMenu from '../../assets/burgerMenu.png'
 import searchGray from '../../assets/search-gray.png'
 import PromoBaner from "./sign-up-promo-baner";
+import Link from "next/link";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -57,7 +58,7 @@ export default function Header() {
           <input type="text" className="bg-gray-300 text-xs outline-none" placeholder="Search for products..."/>
         </div>
         <Image src={searchImage} width={24} height={24} alt="Search" className=" md:hover:cursor-pointer md:hidden"/>
-        <Image src={cartImage} width={24} height={24} alt="Cart" className=" md:hover:cursor-pointer"/>
+        <Link href={'/cart'}><Image src={cartImage} width={24} height={24} alt="Cart" className=" md:hover:cursor-pointer"/></Link>
         <Image src={accountImage} width={24} height={24} alt="Account" className=" md:hover:cursor-pointer"/>
       </div>
 
