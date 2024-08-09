@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CheckboxButton = ({ label, onToggle, checked }) => {
+const CheckboxButton = ({ label, onToggle, checked }: any) => {
     const handleClick = () => {
         onToggle(!checked);
     };

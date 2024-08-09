@@ -2,14 +2,25 @@
 import React from 'react';
 import Image from 'next/image';
 import { ProductType } from '@/types/product.ds';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import RaitingStarts from './raiting-starts';
 
 export default function ProductCard({ product }: { product: ProductType }) {
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleClick = () => {
-    router.push(`shop/product?slug=${product.id}`);
+    let newPath;
+
+    if (pathname.includes('/shop/')) {
+      newPath = `product?slug=${product.id}`;
+    } else if (pathname.endsWith('/shop')) {
+      newPath = `/shop/product?slug=${product.id}`;
+    } else {
+      newPath = `shop/product?slug=${product.id}`;
+    }
+
+    router.push(newPath);
   };
 
   return (

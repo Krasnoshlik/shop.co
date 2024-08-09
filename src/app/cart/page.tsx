@@ -41,7 +41,7 @@ export default function Cart() {
 
 
   return (
-    <div className='pb-20 pt-28 max-w-containerScreen m-auto px-2 flex flex-col gap-4 h-screen'>
+    <div className='pb-20 pt-28 max-w-containerScreen m-auto px-2 flex flex-col gap-4'>
       <NextBreadcrumb
         homeElement="Home"
         separator=">"
@@ -55,7 +55,7 @@ export default function Cart() {
           itemsToShow.map((item: any, index: number) => (
             <div key={index}>
 
-            { index > 0 && <span className=' block w-full h-[1px] md:mb-4 bg-gray-200'></span> }
+            { index > 0 && <span className=' block w-full h-[1px] mb-4 bg-gray-200'></span> }
             <div className='flex gap-5'>
               <Image src={item.img.src} alt='img' width={100} height={100} className=' md:w-[200px]'/> 
               <div className=' w-full flex flex-col justify-between'>
@@ -110,6 +110,13 @@ export default function Cart() {
           <p className=' font-bold text-black'>${summary + 15}</p>
         </div>
 
+        <div className=' flex flex-col gap-4'>
+          <div className=' w-full flex justify-between gap-3'>
+            <input type="text" className=' max-w-[210px] bg-gray-200 rounded-3xl text-gray-500 pl-4 outline-none' placeholder='Add promo code'/>
+            <button className=' px-6 rounded-3xl bg-black flex items-center justify-center text-white w-full py-3 font-medium lg:hover:bg-white lg:hover:text-black ease-in-out duration-500'>Apply</button>
+          </div>
+          <button className=' bg-black flex rounded-3xl items-center justify-center text-white w-full py-3 font-medium lg:hover:bg-white lg:hover:text-black ease-in-out duration-500'>Go to Checkout</button>
+        </div>
         </div> 
       }
       </div>
