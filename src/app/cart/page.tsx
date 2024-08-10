@@ -48,8 +48,8 @@ export default function Cart() {
         capitalizeLinks={true}
       />
 
-      <div className=' flex flex-col md:flex-row gap-4'>
-      <div className=' w-full md:w-5/6 flex flex-col gap-4 border rounded-3xl p-3'>
+      <div className=' flex flex-col md:flex-row gap-4 items-center justify-center'>
+      <div className=' w-full md:w-5/6 flex flex-col gap-4 border rounded-3xl p-3 self-start'>
       {itemsToShow.length === 0 && <div className=' w-full text-center my-20 font-bold text-xl'> <p>No items in cart</p> </div>}
         {
           itemsToShow.map((item: any, index: number) => (
@@ -90,7 +90,7 @@ export default function Cart() {
       </div>
       {
         itemsToShow.length > 0 && 
-        <div className=' w-full md:w-max flex flex-col gap-4 border rounded-3xl p-5'>
+        <div className=' w-full md:w-max flex flex-col self-start gap-4 border rounded-3xl p-5'>
         <h3 className=' font-bold text-black text-xl min-w-[250px]'>Order Summary</h3>
 
         <div className=' flex justify-between text-gray-400'>

@@ -11,7 +11,7 @@ export default function HomePageFindClothes() {
   return (
     <div className=" bg-[#F2F0F1] w-screen flex flex-col justify-center items-center pt-5">
       <section className=" max-w-containerScreen pt-6 px-4 md:flex">
-        <div className=" flex flex-col gap-4 md:w-1/2 md:justify-center">
+        <div className=" mt-14 flex flex-col gap-4 md:w-1/2 md:justify-center">
           <h2 className=" font-extrabold text-4xl lg:text-6xl">
             FIND CLOTHES THAT MATCHES YOUR STYLE
           </h2>

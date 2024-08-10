@@ -31,3 +31,18 @@ export interface FilterForShopProps {
   handleOverlayClick: () => void;
   setFilters: any;
 }
+
+export interface CartItem {
+  addId: number;
+  quantity: number;
+  pickedSize: string;
+}
+
+export interface CartContextType {
+  cart: CartItem[];
+  setCart: React.Dispatch<React.SetStateAction<CartItem[]>>;
+  addToCart: (addId: number, quantity: number, pickedSize: string) => void;
+  removeFromCart: (addId: number) => void;
+  getItems: () => void;
+  ChangeQuantity: (pickedId: number, typeChange: string) => void;
+}
