@@ -11,43 +11,50 @@ interface CartProviderProps {
 }
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  const getItems = () => {
-    if (user) {
-      const storedCart = user.publicMetadata?.cart as CartItem[] | undefined;
-      if (storedCart) {
-        setCart(storedCart);
-      }
-    } else {
-      const storedCart = localStorage.getItem("cart");
-      if (storedCart) {
-        setCart(JSON.parse(storedCart));
+  const getItems = async () => {
+    if (isLoaded) {
+      if (user) {
+        const storedCart = user.publicMetadata?.cart as CartItem[] | undefined;
+        if (storedCart) {
+          setCart(storedCart);
+        } else {
+          const localCart = localStorage.getItem("cart");
+          if (localCart) {
+            setCart(JSON.parse(localCart));
+            await saveCart(JSON.parse(localCart));
+          }
+        }
+      } else {
+        const localCart = localStorage.getItem("cart");
+        if (localCart) {
+          setCart(JSON.parse(localCart));
+        }
       }
     }
   };
 
   const saveCart = async (newCart: CartItem[]) => {
-    try {
-      setCart(newCart);
-      if (user) {
+    setCart(newCart);
+    if (user) {
+      try {
         await user.update({
           publicMetadata: {
             cart: newCart,
           },
         } as any);
-      } else {
-        localStorage.setItem("cart", JSON.stringify(newCart));
+      } catch (error) {
+        console.error("Failed to update user metadata:", error);
       }
-    } catch (error) {
-      console.error("Failed to update user metadata:", error);
     }
+    localStorage.setItem("cart", JSON.stringify(newCart));
   };
 
   useEffect(() => {
     getItems();
-  }, [user]);
+  }, [isLoaded]);
 
   const addToCart = (addId: number, quantity: number, pickedSize: string) => {
     setCart((prevCart) => {
@@ -75,7 +82,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     });
   };
 
-  function ChangeQuantity(pickedId: number, typeChange: string) {
+  const ChangeQuantity = (pickedId: number, typeChange: string) => {
     setCart((prevCart) => {
       const updatedCart = prevCart.map((item) => {
         if (item.addId === pickedId) {
@@ -89,7 +96,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       saveCart(updatedCart);
       return updatedCart;
     });
-  }
+  };
 
   return (
     <CartContext.Provider
