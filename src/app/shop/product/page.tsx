@@ -3,14 +3,14 @@ import React, { Suspense, useState } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import NextBreadcrumb from "@/components/ui/bread-crumbs";
-import { productsList } from "../../../../data/products";
-import { Product, ProductType } from "@/types/product.ds";
-import RaitingStarts from "@/components/ui/raiting-starts";
+import useProducts from "@/hooks/useProducts";
+import { Product } from "@/types/product.ds";
+import RaitingStarts from "@/components/ui/products/raiting-starts";
 import HorizontalLine from "@/components/ui/horizontal-line";
 import { customersComments } from "../../../../data/customers-comments";
 import CustomerCommentCard from "@/components/ui/customer-comment-card";
 import { useCart } from "@/context/cart-context";
-import ProductCard from "@/components/ui/product-card";
+import ProductCard from "@/components/ui/products/product-card";
 
 const tabsArr = ["Product Details", "Raiting & Reviews", "FAQs"];
 
@@ -23,14 +23,19 @@ function ProductDetails() {
   const searchParams = useSearchParams();
   const slug = searchParams.get("slug");
 
+  const { productsList, loading } = useProducts(); 
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   const product: Product | undefined =
-    productsList !== undefined
-      ? productsList.find((item) => item.id === Number(slug))
-      : productsList[0];
+    productsList?.find((item) => +item.id === Number(slug)) as Product | undefined;
 
   if (!product) {
     return <div>Product not found</div>;
   }
+  
   const sizesArr = product?.sizes.split(" ");
 
   const plusButton = () => {
@@ -47,8 +52,6 @@ function ProductDetails() {
     } else addToCart(p, q, s);
   }
 
-  console.log(product)
-
   return (
     <div className="pb-20 pt-28 max-w-containerScreen m-auto px-2">
       <NextBreadcrumb homeElement="Home" separator=">" capitalizeLinks={true} />
@@ -57,8 +60,8 @@ function ProductDetails() {
         <div className=" w-full flex flex-col gap-1">
           <div className=" flex flex-col md:flex-row gap-2">
             <Image
-              src={product.img}
-              alt={product.title}
+              src={`https://firebasestorage.googleapis.com/v0/b/shop-co-313bf.appspot.com/o/products%2F${product.img.toString().split('/').pop()}?alt=media`}
+              alt='img' width={600} height={600}
               className=" w-full max-w-[600px]"
             />
 
@@ -176,6 +179,7 @@ function ProductDetails() {
               <div className=" flex flex-col gap-5 md:flex-row">
                 {customersComments.map((e, i) => {
                   if (i < 3) return <CustomerCommentCard comment={e} key={i} />;
+                  return null;
                 })}
               </div>
             )}
@@ -218,12 +222,12 @@ function ProductDetails() {
             <h3 className=" font-bold text-3xl">YOU MIGHT ALSO LIKE</h3>
 
             <div className=" flex gap-4 w-full overflow-auto lg:overflow-visible lg:flex-wrap">
-                {productsList.map((product: ProductType, index) => {
-                  if (index < 4) {
-                    return <ProductCard product={product} key={product.id} />;
-                  }
-                  return null;
-                })}
+              {productsList.map((product: any, index: number) => {
+                if (index < 4) {
+                  return <ProductCard product={product} key={product.id} />;
+                }
+                return null;
+              })}
             </div>
           </div>
         </div>

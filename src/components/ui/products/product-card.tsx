@@ -1,4 +1,3 @@
-"use client"
 import React from 'react';
 import Image from 'next/image';
 import { ProductType } from '@/types/product.ds';
@@ -25,7 +24,12 @@ export default function ProductCard({ product }: { product: ProductType }) {
 
   return (
     <div onClick={handleClick} className="min-w-[164px] max-w-[290px] flex flex-col gap-1 items-start text-left md:hover:cursor-pointer">
-      <Image src={product.img} alt={product.title}/>
+      <Image 
+        src={`https://firebasestorage.googleapis.com/v0/b/shop-co-313bf.appspot.com/o/products%2F${product.img.toString().split('/').pop()}?alt=media`}
+        alt='img'
+        width={290} 
+        height={290}
+      />
       <h4 className="font-bold text-sm truncate-text" title={product.title}>
         {product.title}
       </h4>
@@ -33,8 +37,8 @@ export default function ProductCard({ product }: { product: ProductType }) {
         <RaitingStarts starsNum={product.raiting}/>
         <span>{product.raiting}/5</span>
       </div>
-      <div className=' w-full flex justify-between items-center'>
-      <p className="font-bold text-sm">${product.price}</p>
+      <div className='w-full flex justify-between items-center'>
+        <p className="font-bold text-sm">${product.price}</p>
       </div>
     </div>
   );

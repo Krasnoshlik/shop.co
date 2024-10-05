@@ -43,13 +43,13 @@ export default function Header() {
               <a href="/shop" className="text-black lg:hover:text-gray-500">
                 Shop
               </a>
-              <a href="#" className="text-black lg:hover:text-gray-500">
+              <a href="#" className="text-black lg:hover:text-gray-500 line-through">
                 On Sale
               </a>
-              <a href="#" className="text-black lg:hover:text-gray-500">
+              <a href="#" className="text-black lg:hover:text-gray-500 line-through">
                 New Arrivals
               </a>
-              <a href="#" className="text-black lg:hover:text-gray-500">
+              <a href="#" className="text-black lg:hover:text-gray-500 line-through">
                 Brands
               </a>
             </nav>

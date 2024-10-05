@@ -1,8 +1,10 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
 import { CartContextType, CartItem } from "@/types/product.ds";
 import { useUser } from "@clerk/nextjs";
+import { firestore } from "@/utils/firebaseConfig";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
@@ -14,56 +16,50 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const { user, isLoaded } = useUser();
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  const getItems = async () => {
-    if (isLoaded) {
-      if (user) {
-        const storedCart = user.publicMetadata?.cart as CartItem[] | undefined;
-        if (storedCart) {
-          setCart(storedCart);
-        } else {
-          const localCart = localStorage.getItem("cart");
-          if (localCart) {
-            setCart(JSON.parse(localCart));
-            await saveCart(JSON.parse(localCart));
-          }
-        }
-      } else {
-        const localCart = localStorage.getItem("cart");
-        if (localCart) {
-          setCart(JSON.parse(localCart));
-        }
-      }
-    }
-  };
-
   const saveCart = async (newCart: CartItem[]) => {
-    setCart(newCart);
     if (user) {
       try {
-        await user.update({
-          publicMetadata: {
-            cart: newCart,
-          },
-        } as any);
+        const userDocRef = doc(firestore, "carts", user.id);
+        await setDoc(userDocRef, { cart: newCart });
       } catch (error) {
-        console.error("Failed to update user metadata:", error);
+        console.error("Failed to save cart to Firestore:", error);
       }
     }
-    localStorage.setItem("cart", JSON.stringify(newCart));
+    
   };
+
+  const getItems = useCallback(async () => {
+    if (isLoaded) {
+      if (user) {
+        try {
+          const userDocRef = doc(firestore, "carts", user.id);
+          const userDocSnap = await getDoc(userDocRef);
+
+          if (userDocSnap.exists()) {
+            const storedCart = userDocSnap.data()?.cart as CartItem[] | undefined;
+            if (storedCart) {
+              setCart(storedCart);
+            }
+          }
+        } catch (error) {
+          console.error("Failed to fetch cart from Firestore:", error);
+        }
+      }
+    }
+  }, [isLoaded, user]);
 
   useEffect(() => {
     getItems();
-  }, [isLoaded]);
+  }, [getItems]);
 
   const addToCart = (addId: number, quantity: number, pickedSize: string) => {
     setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.addId === addId);
+      const existingItem = prevCart.find((item) => +item.addId === addId);
       let updatedCart;
 
       if (existingItem) {
         updatedCart = prevCart.map((item) =>
-          item.addId === addId ? { ...item, quantity: item.quantity + quantity, pickedSize } : item
+          +item.addId === addId ? { ...item, quantity: item.quantity, pickedSize } : item
         );
       } else {
         updatedCart = [...prevCart, { addId, quantity, pickedSize }];
@@ -76,7 +72,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const removeFromCart = (addId: number) => {
     setCart((prevCart) => {
-      const updatedCart = prevCart.filter((item) => item.addId !== addId);
+      const updatedCart = prevCart.filter((item) => +item.addId !== addId);
       saveCart(updatedCart);
       return updatedCart;
     });
@@ -85,23 +81,38 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const ChangeQuantity = (pickedId: number, typeChange: string) => {
     setCart((prevCart) => {
       const updatedCart = prevCart.map((item) => {
-        if (item.addId === pickedId) {
-          const newQuantity =
-            typeChange === "plus" ? item.quantity + 1 : Math.max(1, item.quantity - 1);
-
+        if (+item.addId === pickedId) {
+          let newQuantity = item.quantity;
+  
+          if (typeChange === 'plus') {
+            newQuantity += 1;  
+          } 
+          // Decrement quantity
+          else if (typeChange === 'minus') {
+            if (newQuantity > 1) {
+              newQuantity -= 1; 
+            } else {
+              removeFromCart(+item.addId); 
+              return item;
+            }
+          }
+  
+          console.log('Before update:', item.quantity, 'Action:', typeChange);
+          console.log('After update:', newQuantity);
+    
           return { ...item, quantity: newQuantity };
         }
         return item;
       });
-      saveCart(updatedCart);
-      return updatedCart;
+  
+      saveCart(updatedCart); 
+      return updatedCart; 
     });
   };
-
+  
+  
   return (
-    <CartContext.Provider
-      value={{ cart, setCart, addToCart, removeFromCart, getItems, ChangeQuantity }}
-    >
+    <CartContext.Provider value={{ cart, setCart, addToCart, removeFromCart, getItems, ChangeQuantity }}>
       {children}
     </CartContext.Provider>
   );

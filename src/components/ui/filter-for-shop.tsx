@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import GrayCrossImg from '../../assets/gray-cross.png'
 import HorizontalLine from './horizontal-line'
-import CheckboxButton from './checkbox-button'
+import CheckboxButton from './buttons/checkbox-button'
 import { FilterForShopProps } from '@/types/product.ds'
 
 const FilterForShop: React.FC<FilterForShopProps> = ({handleClick, setFilters }) => {

@@ -1,5 +1,5 @@
 import React from "react";
-import BlackButton from "../ui/black-button";
+import BlackButton from "../ui/buttons/black-button";
 import Image from "next/image";
 
 // images imports

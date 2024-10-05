@@ -1,5 +1,5 @@
-import fullStarImg from '../../assets/products/fullStar.png';
-import halfStarImg from '../../assets/products/halfStar.png';
+import fullStarImg from '../../../assets/products/fullStar.png';
+import halfStarImg from '../../../assets/products/halfStar.png';
 import React from 'react'
 import Image from 'next/image';
 
