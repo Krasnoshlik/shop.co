@@ -1,16 +1,17 @@
 "use client"
 import React from 'react'
-import { customersComments } from '../../../data/customers-comments'
 import CustomerCommentCard from '../ui/customer-comment-card'
-import { customerCommentType } from '@/types/product.ds'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
+import useComments from '@/hooks/useComments'
 
 export default function OurCustomers() {
+  let { commentsList } = useComments();
+
   return (
     <section className='max-w-containerScreen m-auto py-10 flex flex-col gap-5'>
       <div className='flex justify-between items-end mx-4'>
@@ -46,7 +47,7 @@ export default function OurCustomers() {
           modules={[Pagination]}
           className="mySwiper"
         >
-          {customersComments.map((comment: customerCommentType) => {
+          {commentsList.map((comment: any) => {
             return (
               <SwiperSlide key={comment.id} >
                 <div className="slide-content-wrapper">

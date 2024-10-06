@@ -7,12 +7,12 @@ import useProducts from "@/hooks/useProducts";
 import { Product } from "@/types/product.ds";
 import RaitingStarts from "@/components/ui/products/raiting-starts";
 import HorizontalLine from "@/components/ui/horizontal-line";
-import { customersComments } from "../../../../data/customers-comments";
 import CustomerCommentCard from "@/components/ui/customer-comment-card";
 import { useCart } from "@/context/cart-context";
 import ProductCard from "@/components/ui/products/product-card";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useComments from "@/hooks/useComments";
 
 const tabsArr = ["Product Details", "Raiting & Reviews", "FAQs"];
 
@@ -21,6 +21,7 @@ function ProductDetails() {
   const [tabsChoose, setTabsChoose] = useState("Product Details");
   const [count, setCount] = useState(1);
   const { cart, addToCart } = useCart();
+  let { commentsList } = useComments();
 
   const searchParams = useSearchParams();
   const slug = searchParams.get("slug");
@@ -185,7 +186,7 @@ function ProductDetails() {
             )}
             {tabsChoose === "Raiting & Reviews" && (
               <div className=" flex flex-col gap-5 md:flex-row">
-                {customersComments.map((e, i) => {
+                {commentsList.map((e, i) => {
                   if (i < 3) return <CustomerCommentCard comment={e} key={i} />;
                   return null;
                 })}

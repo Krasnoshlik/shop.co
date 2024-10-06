@@ -44,7 +44,7 @@ export default function Cart() {
   console.log(cart)
 
   return (
-    <div className='pb-20 pt-28 max-w-containerScreen m-auto px-2 flex flex-col gap-4'>
+    <div className='pb-60 pt-28 max-w-containerScreen m-auto px-2 flex flex-col gap-4'>
       <NextBreadcrumb
         homeElement="Home"
         separator=">"

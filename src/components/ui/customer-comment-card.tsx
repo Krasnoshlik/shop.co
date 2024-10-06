@@ -2,9 +2,9 @@ import React from 'react'
 import Image from 'next/image';
 import fullStar from '../../assets/products/fullStar.png';
 import greenArrow from '../../assets/greenArrow.png';
-import { customerCommentType } from '@/types/product.ds';
+import { Comment } from '@/types/product.ds';
 
-export default function CustomerCommentCard({comment}: {comment : customerCommentType}) {
+export default function CustomerCommentCard({comment}: {comment : Comment}) {
   return (
     <div className=' min-w-[338px] min-h-[186px] w-[338px] flex flex-col gap-2 border rounded-3xl p-6 self-center'>
         <div className=' flex gap-1'>

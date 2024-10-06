@@ -5,7 +5,6 @@ import accountImage from "../../assets/account.png";
 import searchImage from "../../assets/search.png";
 import cartImage from "../../assets/cart.png";
 import burgerMenu from "../../assets/burgerMenu.png";
-import searchGray from "../../assets/search-gray.png";
 import PromoBaner from "./sign-up-promo-baner";
 import Link from "next/link";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
@@ -56,16 +55,6 @@ export default function Header() {
           </div>
 
           <div className="flex gap-3 max-h-6">
-            <div className=" hidden md:flex md:justify-center md:bg-gray-300 md:px-4 md:h-7 md:rounded-3xl">
-              <button className=" w-6">
-                <Image src={searchGray} alt="searchGray" className=" w-4" />
-              </button>
-              <input
-                type="text"
-                className="bg-gray-300 text-xs outline-none"
-                placeholder="Search for products..."
-              />
-            </div>
             <Image
               src={searchImage}
               width={24}

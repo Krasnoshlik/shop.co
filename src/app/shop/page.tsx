@@ -55,16 +55,21 @@ export default function Shop() {
     if (filters[2]) {
       const [minPrice, maxPrice] = filters[2];
       filtered = filtered.filter((item) => {
-        return (
-          (minPrice === null || item.price >= minPrice) &&
-          (maxPrice === null || item.price <= maxPrice)
-        );
+          if(item.price >= minPrice && item.price <= maxPrice) {
+            return item
+          } else if (minPrice === null && item.price <= maxPrice) {
+            return item
+          } else if (maxPrice === null && item.price >= minPrice) {
+            return item
+          }
       });
     }
 
     setFilteredItems(filtered);
     setIsOpen(false);
   }, [filters, productsList]);
+
+
 
   return (
     <div className='pb-20 pt-28 max-w-containerScreen m-auto px-2 flex flex-col gap-4'>
@@ -80,7 +85,7 @@ export default function Shop() {
         </button>
       </div>
 
-      <div className='md:flex md:justify-between md:gap-5'>
+      <div className='md:flex md:justify-between md:gap-5 h-full'>
         <div className='hidden md:flex md:max-w-[240px] lg:max-w-[300px] border rounded-lg p-4 h-min'>
           <FilterForShop isOpen={isOpen} handleClick={handleClickOnFilterIcon} handleOverlayClick={handleOverlayClick} setFilters={setFilters} />
         </div>
@@ -104,6 +109,13 @@ export default function Shop() {
             breakLinkClassName="w-[36px] h-[36px] border border-gray-300 rounded-md"
           />
         </div>
+        {
+            currentItems.length === 0 && (
+              <div className=' w-full h-full flex justify-center items-center'>
+                <h2 className=' self-center text-gray-400 text-xl'>0 items with such filters</h2>
+              </div>
+            )
+          }
       </div>
 
       <div

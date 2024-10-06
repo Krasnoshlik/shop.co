@@ -1,11 +1,12 @@
+"use client"
 import React from "react";
-import BlackButton from "../ui/buttons/black-button";
 import Image from "next/image";
 
 // images imports
 import { storesImg } from "../../constants/images-arrays-imports";
 import twoPeople from "../../assets/twoPeople.png";
 import romb from "../../assets/romb.png";
+import Link from "next/link";
 
 export default function HomePageFindClothes() {
   return (
@@ -21,7 +22,9 @@ export default function HomePageFindClothes() {
             style.
           </p>
           <div className=" md:w-[210px]">
-          <BlackButton text={"Shop Now"} />
+          <Link 
+          href={'/shop'}
+          className=' rounded-3xl bg-black flex items-center justify-center text-white w-full py-3 font-medium lg:hover:bg-white lg:hover:text-black ease-in-out duration-500'>Shop now</Link>
           </div>
 
           <div className="flex flex-col justify-center items-center gap-3 lg:flex-row lg:justify-start">

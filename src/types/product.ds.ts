@@ -19,10 +19,9 @@ export interface Product {
   sizes: string;
 }
 
-export interface customerCommentType {
-  id: number;
-  customer: string;
+export interface Comment {
   comment: string;
+  customer: string
 }
 
 export interface FilterForShopProps {
