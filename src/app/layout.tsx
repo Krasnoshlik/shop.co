@@ -8,6 +8,7 @@ import Header from "../components/ui/header";
 import Footer from "../components/ui/footer";
 
 import { CartProvider } from '@/context/cart-context';
+import { ToastContainer } from 'react-toastify';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Header/>
+        <ToastContainer />
         <CartProvider>
         {children}
         </CartProvider>

@@ -11,6 +11,8 @@ import { customersComments } from "../../../../data/customers-comments";
 import CustomerCommentCard from "@/components/ui/customer-comment-card";
 import { useCart } from "@/context/cart-context";
 import ProductCard from "@/components/ui/products/product-card";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const tabsArr = ["Product Details", "Raiting & Reviews", "FAQs"];
 
@@ -49,7 +51,9 @@ function ProductDetails() {
   function handleAddToCart(p: number, q: number, s: string) {
     if (sizeChoose.length === 0) {
       alert("Please pick product size");
-    } else addToCart(p, q, s)
+    } else {
+    addToCart(p, q, s);
+  }
   }
 
   return (
@@ -105,7 +109,11 @@ function ProductDetails() {
 
                 <button
                   className=" rounded-3xl bg-black flex items-center justify-center text-white w-full py-3 font-medium lg:hover:bg-white lg:hover:text-black ease-in-out duration-500"
-                  onClick={() => handleAddToCart(product.id, count, sizeChoose)}
+                  onClick={() => {
+                    handleAddToCart(product.id, count, sizeChoose);
+                    toast(`${count} ${product?.title} added to cart`);
+                  }
+                  }
                 >
                   Add to Cart
                 </button>
