@@ -18,31 +18,30 @@ export default function Cart() {
   }, [getItems]);
 
   useEffect(() => {
-    if (loading || cart.length === 0) return;
-  
-    if (cart && cart.length > 0 && !loading) {
-      const filteredItems = cart.map(cartItem => {
-        const product = productsList.find((p) => p.id.toString() === cartItem.addId.toString());
-        if (product) {
-          return {
-            ...product,
-            pickedSize: cartItem.pickedSize,
-            quantity: cartItem.quantity,
-          };
-        }
-        return null;
-      }).filter(item => item !== null);
-  
-      setItemsToShow(filteredItems);
-      setSummary(filteredItems.reduce((acc, item) => acc + (item.price * item.quantity), 0));
-    } else {
+    if (cart.length === 0) {
       setItemsToShow([]);
-      setSummary(0);
     }
+
+    if (loading || cart.length === 0) return;
+
+    const filteredItems = cart.map(cartItem => {
+      const product = productsList.find((p) => p.id.toString() === cartItem.addId.toString());
+      if (product) {
+        return {
+          ...product,
+          pickedSize: cartItem.pickedSize,
+          quantity: cartItem.quantity,
+        };
+      }
+      return null;
+    }).filter(item => item !== null);
+
+    setItemsToShow(filteredItems);
+    setSummary(filteredItems.reduce((acc, item) => acc + (item.price * item.quantity), 0));
+
   }, [cart, productsList, loading]);
 
   console.log(cart)
-
 
   return (
     <div className='pb-20 pt-28 max-w-containerScreen m-auto px-2 flex flex-col gap-4'>
@@ -61,17 +60,16 @@ export default function Cart() {
           )}
           {
             itemsToShow.map((item: any, index: number) => (
-      
               <div key={index}>
                 {index > 0 && <span className='block w-full h-[1px] mb-4 bg-gray-200'></span>}
                 <div className='flex gap-5'>
                   <Image src={`https://firebasestorage.googleapis.com/v0/b/shop-co-313bf.appspot.com/o/products%2F${item.img.split('/').pop()}?alt=media`}
-                   alt='img' width={100} height={100} className='md:w-[200px]' />
+                    alt='img' width={100} height={100} className='md:w-[200px]' />
                   <div className='w-full flex flex-col justify-between'>
                     <div>
                       <div className='flex justify-between text-sm'>
                         <p className='font-bold'>{item.title}</p>
-                        <button onClick={() => removeFromCart(+item.id)}>
+                        <button onClick={() => removeFromCart(item.id, item.pickedSize)}>
                           <Image src={recycleBinImg} alt='recycleBinImg' className='min-w-5' />
                         </button>
                       </div>
@@ -82,11 +80,11 @@ export default function Cart() {
                       <p className='font-bold text-xl'>${item.price}</p>
 
                       <div className="w-20 flex rounded-3xl bg-[#F0F0F0] py-1 font-medium items-center justify-between text-center text-sm">
-                        <button className="w-full" onClick={() => ChangeQuantity(+item.id, 'minus')}>
+                        <button className="w-full" onClick={() => ChangeQuantity(item.id, item.pickedSize, 'minus')}>
                           -
                         </button>
                         <p className="max-w-5 min-w-5">{item.quantity}</p>
-                        <button className="w-full" onClick={() => ChangeQuantity(+item.id , 'plus')}>
+                        <button className="w-full" onClick={() => ChangeQuantity(item.id, item.pickedSize, 'plus')}>
                           +
                         </button>
                       </div>
@@ -132,4 +130,3 @@ export default function Cart() {
     </div>
   );
 }
-

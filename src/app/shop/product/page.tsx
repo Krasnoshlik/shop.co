@@ -49,7 +49,7 @@ function ProductDetails() {
   function handleAddToCart(p: number, q: number, s: string) {
     if (sizeChoose.length === 0) {
       alert("Please pick product size");
-    } else addToCart(p, q, s);
+    } else addToCart(p, q, s)
   }
 
   return (

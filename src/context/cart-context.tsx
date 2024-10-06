@@ -6,6 +6,9 @@ import { useUser } from "@clerk/nextjs";
 import { firestore } from "@/utils/firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
+// Key for local storage
+const LOCAL_STORAGE_KEY = 'cart_items';
+
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 interface CartProviderProps {
@@ -16,21 +19,27 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const { user, isLoaded } = useUser();
   const [cart, setCart] = useState<CartItem[]>([]);
 
+  // Save cart to Firestore if user is logged in, otherwise to local storage
   const saveCart = async (newCart: CartItem[]) => {
     if (user) {
+      // Save to Firestore if user is logged in
       try {
         const userDocRef = doc(firestore, "carts", user.id);
         await setDoc(userDocRef, { cart: newCart });
       } catch (error) {
         console.error("Failed to save cart to Firestore:", error);
       }
+    } else {
+      // Save to local storage if user is not logged in
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newCart));
     }
-    
   };
 
+  // Fetch cart from Firestore for logged-in users or from local storage for anonymous users
   const getItems = useCallback(async () => {
     if (isLoaded) {
       if (user) {
+        // Fetch from Firestore if the user is logged in
         try {
           const userDocRef = doc(firestore, "carts", user.id);
           const userDocSnap = await getDoc(userDocRef);
@@ -44,22 +53,33 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         } catch (error) {
           console.error("Failed to fetch cart from Firestore:", error);
         }
+      } else {
+        // Fetch from local storage if the user is not logged in
+        const storedCart = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (storedCart) {
+          setCart(JSON.parse(storedCart));
+        }
       }
     }
   }, [isLoaded, user]);
 
   useEffect(() => {
-    getItems();
+    getItems(); // Fetch cart on component mount
   }, [getItems]);
 
+  // Add item to cart and save to the appropriate storage
   const addToCart = (addId: number, quantity: number, pickedSize: string) => {
     setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => +item.addId === addId);
+      const existingItem = prevCart.find(
+        (item) => item.addId === addId && item.pickedSize === pickedSize
+      );
       let updatedCart;
 
       if (existingItem) {
         updatedCart = prevCart.map((item) =>
-          +item.addId === addId ? { ...item, quantity: item.quantity, pickedSize } : item
+          item.addId === addId && item.pickedSize === pickedSize
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
         );
       } else {
         updatedCart = [...prevCart, { addId, quantity, pickedSize }];
@@ -70,47 +90,41 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     });
   };
 
-  const removeFromCart = (addId: number) => {
+  // Remove item from cart
+  const removeFromCart = (addId: number, pickedSize: string) => {
     setCart((prevCart) => {
-      const updatedCart = prevCart.filter((item) => +item.addId !== addId);
+      const updatedCart = prevCart.filter(
+        (item) => !(item.addId === addId && item.pickedSize === pickedSize)
+      );
+
       saveCart(updatedCart);
       return updatedCart;
     });
   };
 
-  const ChangeQuantity = (pickedId: number, typeChange: string) => {
+  // Change quantity of a cart item
+  const ChangeQuantity = (pickedId: number, pickedSize: string, typeChange: string) => {
     setCart((prevCart) => {
       const updatedCart = prevCart.map((item) => {
-        if (+item.addId === pickedId) {
+        if (item.addId === pickedId && item.pickedSize === pickedSize) {
           let newQuantity = item.quantity;
-  
+
           if (typeChange === 'plus') {
-            newQuantity += 1;  
-          } 
-          // Decrement quantity
-          else if (typeChange === 'minus') {
-            if (newQuantity > 1) {
-              newQuantity -= 1; 
-            } else {
-              removeFromCart(+item.addId); 
-              return item;
-            }
+            newQuantity += 1;
+          } else if (typeChange === 'minus') {
+            newQuantity = Math.max(1, newQuantity - 1); // Prevent going below 1
           }
-  
-          console.log('Before update:', item.quantity, 'Action:', typeChange);
-          console.log('After update:', newQuantity);
-    
+
           return { ...item, quantity: newQuantity };
         }
         return item;
       });
-  
-      saveCart(updatedCart); 
-      return updatedCart; 
+
+      saveCart(updatedCart); // Save updated cart to Firestore or local storage
+      return updatedCart;
     });
   };
-  
-  
+
   return (
     <CartContext.Provider value={{ cart, setCart, addToCart, removeFromCart, getItems, ChangeQuantity }}>
       {children}
@@ -118,6 +132,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   );
 };
 
+// Custom hook to access cart context
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
