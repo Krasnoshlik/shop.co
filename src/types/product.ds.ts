@@ -42,7 +42,7 @@ export interface CartContextType {
   cart: CartItem[];
   setCart: React.Dispatch<React.SetStateAction<CartItem[]>>;
   addToCart: (addId: number, quantity: number, pickedSize: string) => void;
-  removeFromCart: (addId: number) => void;
+  removeFromCart: (addId: number, pickedSize: string) => void;
+  ChangeQuantity: (pickedId: number, pickedSize: string, typeChange: string) => void;
   getItems: () => void;
-  ChangeQuantity: (pickedId: number, typeChange: string) => void;
 }

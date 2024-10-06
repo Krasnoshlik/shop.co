@@ -22,7 +22,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   // Save cart to Firestore if user is logged in, otherwise to local storage
   const saveCart = async (newCart: CartItem[]) => {
     if (user) {
-      // Save to Firestore if user is logged in
       try {
         const userDocRef = doc(firestore, "carts", user.id);
         await setDoc(userDocRef, { cart: newCart });
@@ -30,7 +29,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         console.error("Failed to save cart to Firestore:", error);
       }
     } else {
-      // Save to local storage if user is not logged in
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newCart));
     }
   };
@@ -64,7 +62,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   }, [isLoaded, user]);
 
   useEffect(() => {
-    getItems(); // Fetch cart on component mount
+    getItems();
   }, [getItems]);
 
   // Add item to cart and save to the appropriate storage
@@ -112,7 +110,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
           if (typeChange === 'plus') {
             newQuantity += 1;
           } else if (typeChange === 'minus') {
-            newQuantity = Math.max(1, newQuantity - 1); // Prevent going below 1
+            newQuantity = Math.max(1, newQuantity - 1);
           }
 
           return { ...item, quantity: newQuantity };
@@ -120,7 +118,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         return item;
       });
 
-      saveCart(updatedCart); // Save updated cart to Firestore or local storage
+      saveCart(updatedCart);
       return updatedCart;
     });
   };
